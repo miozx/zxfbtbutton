@@ -4,7 +4,8 @@
 // @version      0.9
 // @description  追新番磁力下载按钮修复
 // @author       pbbqdd
-// @include        http://www.zhuixinfan.com/*
+// @match        http://www.zhuixinfan.com/viewtvplay*
+// @match        http://www.zhuixinfan.com/main.php?mod=viewresource&sid=*
 // @grant        none
 // @require      https://cdn.staticfile.org/jquery/1.12.4/jquery.min.js
 // ==/UserScript==
