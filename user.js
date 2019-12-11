@@ -8,6 +8,7 @@
 // @match        http://www.zhuixinfan.com/main.php?mod=viewresource&sid=*
 // @grant        none
 // @require      https://cdn.staticfile.org/jquery/1.12.4/jquery.min.js
+// @require      https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js
 // ==/UserScript==
 
 
@@ -29,18 +30,32 @@ $.ajax({url:url,success:function(result){
 });
 }
 
+function copy_fix(tag,targit){
+$(tag).attr("data-clipboard-target",targit);
+}
+
 (function() {
     try{
     var selectdl = document.createElement("a");//添加一个下载选项按钮
     selectdl.className="bt bt-copy";
     selectdl.id ="selectdl";
     selectdl.innerHTML="下载选择项";
+//    selectdl.data-clipboard-target="";
+
     var dlink = document.getElementsByClassName("dlinks");
     var mutidown=dlink[1].getElementsByTagName("dt")[0].appendChild(selectdl);
     //修复点击下载按钮
     var text =selectbt(this);
     var ci = document.getElementsByClassName("bt bt-cl");
     ci[0].href = text;
+    //修复复制按钮
+    new ClipboardJS('.bt-copy');
+    $("a.bt.bt-copy").attr("data-clipboard-target",function(){
+       var dct=$(this).attr("data-clipboard-target");
+       return "#"+dct;
+
+    });
+
     //定位到连接清单
     }
     catch(e){
@@ -69,6 +84,7 @@ $.ajax({url:url,success:function(result){
 
 
 })();
+
 
 
 
