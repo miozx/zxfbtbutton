@@ -20,10 +20,10 @@ function selectbt(){//得到magnet link内容
 };
 
 
-function get_link(tag,url){//get_magnet
+function get_link(tag,url,pro){//get_magnet
 $(document).ready(function(){
 $.ajax({url:url,success:function(result){
-   $(tag).attr("href",$(result).find("#torrent_url").text())
+   $(tag).attr(pro,$(result).find("#torrent_url").text())
 
 }})
 
@@ -34,16 +34,76 @@ function copy_fix(tag,targit){
 $(tag).attr("data-clipboard-target",targit);
 }
 
-(function() {
-    try{
-    var selectdl = document.createElement("a");//添加一个下载选项按钮
-    selectdl.className="bt bt-copy";
-    selectdl.id ="selectdl";
-    selectdl.innerHTML="下载选择项";
-//    selectdl.data-clipboard-target="";
+function copy_text(tag,targit){
+$(tag).attr("data-clipboard-text",targit);
+}
 
+function selectdl(){//选择性复制
+    var selectdl = document.createElement("a");
+    selectdl.id ="selectdl";
+    selectdl.className ="bt bts-copy";
+    selectdl.innerHTML="copy选择项";
     var dlink = document.getElementsByClassName("dlinks");
     var mutidown=dlink[1].getElementsByTagName("dt")[0].appendChild(selectdl);
+    new ClipboardJS('.bts-copy');
+    $(document).ready(function(){
+       $("#selectdl").click(function(){
+           var toplist = document.getElementsByClassName("td2");
+           var i;
+           var magnets="";
+           for (i = 0; i < toplist.length; i++) {
+           var magnet_link=document.getElementById("cb"+i);
+               if(magnet_link.checked){
+
+               magnets=magnets+magnet_link.value+"\n";
+
+               }
+           }
+           copy_text("#selectdl",magnets);
+           alert("已复制选中链接")
+
+
+       });
+
+
+    });
+
+}
+function downlist(){
+    var dllist=document.createElement("dl");
+    var toplist = document.getElementsByClassName("td2");//捕捉td2选择
+    var i;
+    for (i = 0; i < toplist.length; i++) {
+    var dttmp = document.createElement("dt");
+    var input= document.createElement("input");
+        input.type="checkbox";
+        input.id ="cb"+i;
+        input.className="bt bt-cl";
+        input.innerHTML=toplist[i].getElementsByTagName("a")[0].innerHTML
+        //input.checked="checked"
+       // var page_url=toplist[i].getElementsByTagName("a")[0].href;
+
+        //get_link(input,page_url);//magnet link 加入到a的href属性
+    toplist[i].appendChild(input);
+    dttmp.appendChild(input);
+    dllist.appendChild(dttmp);
+
+
+
+
+
+}
+    return dllist;
+
+
+
+
+}
+
+(function() {
+    try{
+    selectdl();
+
     //修复点击下载按钮
     var text =selectbt(this);
     var ci = document.getElementsByClassName("bt bt-cl");
@@ -66,14 +126,20 @@ $(tag).attr("data-clipboard-target",targit);
     var i;
     for (i = 0; i < toplist.length; i++) {
     var input= document.createElement("a");
+    var input_cb = document.createElement("input");
+        input_cb.type="checkbox";
+        input_cb.checked="checked";
         //input.type="button";
-        input.id ="cb"+i;
+        input_cb.id ="cb"+i;
         input.className="bt bt-cl";
         input.innerHTML="U力下载"
         //input.checked="checked"
         var page_url=toplist[i].getElementsByTagName("a")[0].href;
-        get_link(input,page_url);//magnet link 加入到a的href属性
+        get_link(input,page_url,"href");
+        get_link(input_cb,page_url,"value");//magnet link 加入到a的href属性
     toplist[i].appendChild(input);
+    toplist[i].appendChild(input_cb);
+
     };
 
 };
@@ -84,6 +150,7 @@ $(tag).attr("data-clipboard-target",targit);
 
 
 })();
+
 
 
 
