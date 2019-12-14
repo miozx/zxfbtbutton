@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         追新番磁力下载按钮
 // @namespace    http://tampermonkey.net/
-// @version      0.9.1
+// @version      0.9.2
 // @description  追新番磁力下载按钮修复
 // @author       pbbqdd
 // @match        http://www.zhuixinfan.com/viewtvplay*
