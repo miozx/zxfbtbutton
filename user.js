@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         追新番磁力下载按钮
 // @namespace    http://tampermonkey.net/
-// @version      0.9.2
+// @version      0.9.1
 // @description  追新番磁力下载按钮修复
 // @author       pbbqdd
 // @match        http://www.zhuixinfan.com/viewtvplay*
@@ -102,7 +102,6 @@ function downlist(){
 
 (function() {
     try{
-    selectdl();
 
     //修复点击下载按钮
     var text =selectbt(this);
@@ -143,6 +142,10 @@ function downlist(){
     };
 
 };
+
+    try{
+        selectdl();
+}catch(e){throw e;}
 //加载连接
 
 
