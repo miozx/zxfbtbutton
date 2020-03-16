@@ -4,8 +4,8 @@
 // @version      0.9.3
 // @description  追新番磁力下载按钮修复
 // @author       pbbqdd
-// @match        http://www.zhuixinfan.com/viewtvplay*
-// @match        http://www.zhuixinfan.com/main.php?mod=viewresource&sid=*
+// @match        http://*.zhuixinfan.com/viewtvplay*
+// @match        http://*.zhuixinfan.com/main.php?mod=viewresource&sid=*
 // @grant        none
 // @require      https://cdn.staticfile.org/jquery/1.12.4/jquery.min.js
 // @require      https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js
@@ -42,7 +42,7 @@ function selectdl(){//选择性复制
     var selectdl = document.createElement("a");
     selectdl.id ="selectdl";
     selectdl.className ="bt bts-copy";
-    selectdl.innerHTML="copy选择项";
+    selectdl.innerHTML="复制选择项";
     var dlink = document.getElementsByClassName("dlinks");
     var mutidown=dlink[1].getElementsByTagName("dt")[0].appendChild(selectdl);
     new ClipboardJS('.bts-copy');
